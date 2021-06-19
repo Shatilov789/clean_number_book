@@ -1,16 +1,17 @@
-# This is a sample Python script.
+from contact_list import clear
+from number import clear_number
+from delete_dublicat import clear_dublicat
+import csv
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+with open("phonebook_raw.csv", encoding="utf-8") as f:
+  rows = csv.reader(f, delimiter=",")
+  contacts_list = list(rows)
+  counter = len(contacts_list)
 
+  apart_contact_list = clear(counter,contacts_list)
+  apart_contact_list = clear_number(apart_contact_list)
+  upload_contact_list = clear_dublicat(apart_contact_list, counter,contacts_list)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+with open("phonebook.csv", "w", encoding= 'utf-8') as f:
+  datawriter = csv.writer(f, delimiter=',')
+  datawriter.writerows(upload_contact_list)
